@@ -1,0 +1,189 @@
+{
+  "name": "jay-gurudev-extension",
+  "displayName": "Jay Gurudev AI",
+  "description": "Jay Gurudev AI - Independent AI Coding Assistant for VS Code",
+  "version": "0.1.0",
+  "publisher": "jaygurudev",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "jaygurudev",
+    "ai",
+    "assistant",
+    "coding",
+    "bengali",
+    "chat"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jayGurudev",
+          "title": "Jay Gurudev AI",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "jayGurudev": [
+        {
+          "type": "webview",
+          "id": "jayGurudev.chat",
+          "name": "Chat",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "jayGurudev.openChat",
+        "title": "Open Chat",
+        "category": "Jay Gurudev"
+      },
+      {
+        "command": "jayGurudev.newChat",
+        "title": "New Chat",
+        "category": "Jay Gurudev",
+        "icon": "$(add)"
+      },
+      {
+        "command": "jayGurudev.clearChat",
+        "title": "Clear Chat History",
+        "category": "Jay Gurudev",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "jayGurudev.setApiKey",
+        "title": "Set API Key",
+        "category": "Jay Gurudev",
+        "icon": "$(key)"
+      },
+      {
+        "command": "jayGurudev.explainCode",
+        "title": "Explain Selected Code",
+        "category": "Jay Gurudev"
+      },
+      {
+        "command": "jayGurudev.refactorCode",
+        "title": "Refactor Selected Code",
+        "category": "Jay Gurudev"
+      },
+      {
+        "command": "jayGurudev.debugCode",
+        "title": "Debug Selected Code",
+        "category": "Jay Gurudev"
+      },
+      {
+        "command": "jayGurudev.generateCode",
+        "title": "Generate Code",
+        "category": "Jay Gurudev"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "jayGurudev.newChat",
+          "when": "view == jayGurudev.chat",
+          "group": "navigation@1"
+        },
+        {
+          "command": "jayGurudev.clearChat",
+          "when": "view == jayGurudev.chat",
+          "group": "navigation@2"
+        },
+        {
+          "command": "jayGurudev.setApiKey",
+          "when": "view == jayGurudev.chat",
+          "group": "navigation@3"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "jayGurudev.explainCode",
+          "when": "editorHasSelection",
+          "group": "JayGurudev@1"
+        },
+        {
+          "command": "jayGurudev.refactorCode",
+          "when": "editorHasSelection",
+          "group": "JayGurudev@2"
+        },
+        {
+          "command": "jayGurudev.debugCode",
+          "when": "editorHasSelection",
+          "group": "JayGurudev@3"
+        },
+        {
+          "command": "jayGurudev.generateCode",
+          "group": "JayGurudev@4"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Jay Gurudev AI",
+      "properties": {
+        "jayGurudev.baseUrl": {
+          "type": "string",
+          "default": "https://desktop-tq3n3fd.tail4fa6f3.ts.net",
+          "description": "Base URL of the JayGurudev model server."
+        },
+        "jayGurudev.model": {
+          "type": "string",
+          "default": "jayGurudev",
+          "description": "Model name identifier to request."
+        },
+        "jayGurudev.apiKeyHeader": {
+          "type": "string",
+          "default": "x-api-key",
+          "description": "HTTP Header name used to send the API key (stored in SecretStorage)."
+        },
+        "jayGurudev.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0.0,
+          "maximum": 2.0,
+          "description": "Sampling temperature for completions."
+        },
+        "jayGurudev.maxTokens": {
+          "type": "number",
+          "default": 4096,
+          "description": "Maximum number of tokens to generate."
+        },
+        "jayGurudev.stream": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable streaming responses in real time."
+        },
+        "jayGurudev.systemPrompt": {
+          "type": "string",
+          "default": "You are Jay Gurudev AI, an expert AI coding assistant. You write clean, robust code and explain complex software engineering concepts clearly. You support both English and Bengali (বাংলা) fluently.",
+          "description": "System prompt instructions for Jay Gurudev AI."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.24.0",
+    "typescript": "^5.3.3"
+  }
+}
